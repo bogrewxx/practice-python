@@ -38,3 +38,21 @@ class Logger:
         formatted = self.formatter.format(message)
         for handler in self.handlers:
             handler.handle(formatted)
+
+
+from logger import Logger, TimeFormatter, StreamHandler
+import sys
+
+def main():
+    formatter = TimeFormatter("%Y-%m-%d %H:%M:%S")
+    logger = Logger(formatter)
+
+    stderr_handler = StreamHandler(sys.stderr)
+    logger.add_handler(stderr_handler)
+
+
+    logger.log("message for logging")
+    logger.log("another message")
+
+if __name__ == "__main__":
+    main()
